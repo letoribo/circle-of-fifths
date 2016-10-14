@@ -1,5 +1,6 @@
 $(function(){
-  var options = {
+  var id,
+  options = {
 	 mapKey: "title",	 
 	 render_select: {
 	   fillColor: 'eebb6e',
@@ -21,21 +22,23 @@ $(function(){
     });
 
     $("#"+mode).mapster(options);
+    if(id) $( "area[id='"+id+"']" ).mapster('select');
   });
   
   $("area").click(function(e){
   	 $('area').mapster('deselect');
-  	 var id = $(e.target).attr("title");
+  	 var tonality = $(e.target).attr("title");
+  	 id = $(e.target).attr("id");
   	 //console.log(id);
   	 setTimeout(function() {
-      $( "area[title='"+id+"']" ).mapster('select');
+      $( "area[title='"+tonality+"']" ).mapster('select');
     }, 0);
-  	 renderChord(id);
+  	 renderKeySignatures(tonality);
   }); 
 
 });
 
-function renderChord(chordName) {
+function renderKeySignatures(chordName) {
   var canvas = $("#grand_staff")[0];
   var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
 
